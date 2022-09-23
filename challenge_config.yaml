@@ -1,6 +1,6 @@
 # If you are not sure what all these fields mean, please refer our documentation here:
 # https://evalai.readthedocs.io/en/latest/configuration.html
-title: Open Catalyst Project Challenge for OER (Oxygen Evolution Reaction)
+title: OC22 - Open Catalyst Project Challenge for OER (Oxygen Evolution Reaction)
 short_description: Use AI to model and discover new catalysts to address the energy challenges posed by climate change.
 description: templates/description.html
 evaluation_details: templates/evaluation_details.html
@@ -11,7 +11,7 @@ leaderboard_description:
 evaluation_script: evaluation_script.zip
 remote_evaluation: True
 is_docker_based: False
-start_date: 2022-07-01 00:00:00
+start_date: 2022-09-23 00:00:00
 end_date: 2042-12-31 23:59:59
 blocked_email_domains: ["mailinator.com"]
 published: False
@@ -37,7 +37,7 @@ challenge_phases:
     leaderboard_public: False
     is_public: True
     is_submission_public: False
-    start_date: 2022-07-01 00:00:00
+    start_date: 2022-09-23 00:00:00
     end_date: 2042-12-31 23:59:59
     test_annotation_file: annotations/dummy.json
     codename: s2ef_val
@@ -92,7 +92,7 @@ challenge_phases:
     leaderboard_public: True
     is_public: True
     is_submission_public: False
-    start_date: 2022-07-01 00:00:00
+    start_date: 2022-09-23 00:00:00
     end_date: 2042-12-31 23:59:59
     test_annotation_file: annotations/dummy.json
     codename: s2ef_test
@@ -147,7 +147,7 @@ challenge_phases:
     leaderboard_public: False
     is_public: True
     is_submission_public: False
-    start_date: 2022-07-01 00:00:00
+    start_date: 2022-09-23 00:00:00
     end_date: 2042-12-31 23:59:59
     test_annotation_file: annotations/dummy.json
     codename: is2re_val
@@ -207,7 +207,7 @@ challenge_phases:
     leaderboard_public: True
     is_public: True
     is_submission_public: False
-    start_date: 2022-07-01 00:00:00
+    start_date: 2022-09-23 00:00:00
     end_date: 2042-12-31 23:59:59
     test_annotation_file: annotations/dummy.json
     codename: is2re_test
