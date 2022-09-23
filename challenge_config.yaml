@@ -1,145 +1,303 @@
 # If you are not sure what all these fields mean, please refer our documentation here:
 # https://evalai.readthedocs.io/en/latest/configuration.html
-title: Random Number Generator Challenge
-short_description: Random number generation challenge for each submission
+title: Open Catalyst Project Challenge for OER (Oxygen Evolution Reaction)
+short_description: Use AI to model and discover new catalysts to address the energy challenges posed by climate change.
 description: templates/description.html
 evaluation_details: templates/evaluation_details.html
 terms_and_conditions: templates/terms_and_conditions.html
-image: logo.jpg
+image: logo.png
 submission_guidelines: templates/submission_guidelines.html
-leaderboard_description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras egestas a libero nec sagittis.
+leaderboard_description:
 evaluation_script: evaluation_script.zip
-remote_evaluation: False
+remote_evaluation: True
 is_docker_based: False
-start_date: 2019-01-01 00:00:00
-end_date: 2099-05-31 23:59:59
-published: True
+start_date: 2022-07-01 00:00:00
+end_date: 2042-12-31 23:59:59
+blocked_email_domains: ["mailinator.com"]
+published: False
 
 leaderboard:
-  - id: 1
+  - id: 1  # S2EF
     schema:
       {
-        "labels": ["Metric1", "Metric2", "Metric3", "Total"],
-        "default_order_by": "Total",
-        "metadata": {
-          "Metric1": {
-            "sort_ascending": True,
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          },
-          "Metric2": {
-            "sort_ascending": True,
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          }
-        }
+        "labels": ["Energy MAE (eV) -- ID", "Forces MAE (eV / A) -- ID", "EFwT -- ID", "Forces cosine -- ID", "Energy MAE (eV) -- OOD", "Forces MAE (eV / A) -- OOD", "Forces cosine -- OOD", "EFwT -- OOD"],
+        "default_order_by": "EFwT -- OOD",
+      }
+  - id: 2  # IS2RE
+    schema:
+      {
+        "labels": ["Energy MAE (eV) -- ID", "EwT -- ID", "Energy MAE (eV) -- OOD", "EwT -- OOD"],
+        "default_order_by": "EwT -- OOD",
       }
 
 challenge_phases:
   - id: 1
-    name: Dev Phase
-    description: templates/challenge_phase_1_description.html
+    name: Predicting energy and forces from structure (S2EF) -- Validation
+    description: templates/s2ef_val.html
     leaderboard_public: False
     is_public: True
-    is_submission_public: True
-    start_date: 2019-01-19 00:00:00
-    end_date: 2099-04-25 23:59:59
-    test_annotation_file: annotations/test_annotations_devsplit.json
-    codename: dev
-    max_submissions_per_day: 5
-    max_submissions_per_month: 50
-    max_submissions: 50
-    default_submission_meta_attributes:
-      - name: method_name
-        is_visible: True
-      - name: method_description
-        is_visible: True
-      - name: project_url
-        is_visible: True
-      - name: publication_url
-        is_visible: True
+    is_submission_public: False
+    start_date: 2022-07-01 00:00:00
+    end_date: 2042-12-31 23:59:59
+    test_annotation_file: annotations/dummy.json
+    codename: s2ef_val
+    max_submissions_per_day: 10
+    max_submissions_per_month: 300
+    max_submissions: 300
     submission_meta_attributes:
-      - name: TextAttribute
-        description: Sample
+      - name: Institution name
+        description: Institution name
         type: text
-        required: False
-      - name: SingleOptionAttribute
-        description: Sample
+        required: false
+      - name: Background
+        description: What's your primary area of expertise (machine learning, chemical engineering, something else?)
+        type: text
+        required: false
+      - name: Code URL
+        description: Link to code, if available
+        type: text
+        required: false
+      - name: Paper URL
+        description: Link to paper, if available
+        type: text
+        required: false
+      - name: What data was used for training?
+        description: What data was used for training?
         type: radio
-        options: ["A", "B", "C"]
-      - name: MultipleChoiceAttribute
-        description: Sample
-        type: checkbox
-        options: ["alpha", "beta", "gamma"]
-      - name: TrueFalseField
-        description: Sample
-        type: boolean
-        required: True
+        options: ["OC20-only", "OC22-only", "OC20 + OC22", "Other"]
+        required: true
+      - name: If "Other" data was used for training, describe what data was used.
+        description: If "Other" data was used for training, describe what data was used.
+        type: text
+        required: false
+      - name: Training / Inference Time
+        description: How long does it take to train your model and generate predictions?
+        type: text
+        required: false
+      - name: Is force being modeled as a conservative vector field?
+        description: That is, as a function of the gradient of potential energy
+        type: radio
+        options: ["Yes", "No"]
+        required: false
+      - name: Features
+        description: If you used any hand-designed features, briefly describe them
+        type: text
+        required: false
     is_restricted_to_select_one_submission: False
-    is_partial_submission_evaluation_enabled: False
-    allowed_submission_file_types: ".json, .zip, .txt, .tsv, .gz, .csv, .h5, .npy, .npz"
+    is_partial_submission_evaluation_enabled: True
+    allowed_submission_file_types: ".npy, .npz"
   - id: 2
-    name: Test Phase
-    description: templates/challenge_phase_2_description.html
+    name: Predicting energy and forces from structure (S2EF) -- Test
+    description: templates/s2ef_test.html
     leaderboard_public: True
     is_public: True
-    is_submission_public: True
-    start_date: 2019-01-01 00:00:00
-    end_date: 2099-05-24 23:59:59
-    test_annotation_file: annotations/test_annotations_testsplit.json
-    codename: test
-    max_submissions_per_day: 5
-    max_submissions_per_month: 50
-    max_submissions: 50
-    default_submission_meta_attributes:
-      - name: method_name
-        is_visible: True
-      - name: method_description
-        is_visible: True
-      - name: project_url
-        is_visible: True
-      - name: publication_url
-        is_visible: True
+    is_submission_public: False
+    start_date: 2022-07-01 00:00:00
+    end_date: 2042-12-31 23:59:59
+    test_annotation_file: annotations/dummy.json
+    codename: s2ef_test
+    max_submissions_per_day: 10
+    max_submissions_per_month: 10
+    max_submissions: 10
     submission_meta_attributes:
-      - name: TextAttribute
-        description: Sample
+      - name: Institution name
+        description: Institution name
         type: text
-      - name: SingleOptionAttribute
-        description: Sample
+        required: false
+      - name: Background
+        description: What's your primary area of expertise (machine learning, chemical engineering, something else?)
+        type: text
+        required: false
+      - name: Code URL
+        description: Link to code, if available
+        type: text
+        required: false
+      - name: Paper URL
+        description: Link to paper, if available
+        type: text
+        required: false
+      - name: What data was used for training?
+        description: What data was used for training?
         type: radio
-        options: ["A", "B", "C"]
-      - name: MultipleChoiceAttribute
-        description: Sample
-        type: checkbox
-        options: ["alpha", "beta", "gamma"]
-      - name: TrueFalseField
-        description: Sample
-        type: boolean
+        options: ["OC20-only", "OC22-only", "OC20 + OC22", "Other"]
+        required: true
+      - name: If "Other" data was used for training, describe what data was used.
+        description: If "Other" data was used for training, describe what data was used.
+        type: text
+        required: false
+      - name: Training / Inference Time
+        description: How long does it take to train your model and generate predictions?
+        type: text
+        required: false
+      - name: Is force being modeled as a conservative vector field?
+        description: That is, as a function of the gradient of potential energy
+        type: radio
+        options: ["Yes", "No"]
+        required: false
+      - name: Features
+        description: If you used any hand-designed features, briefly describe them
+        type: text
+        required: false
     is_restricted_to_select_one_submission: False
-    is_partial_submission_evaluation_enabled: False
+    is_partial_submission_evaluation_enabled: True
+    allowed_submission_file_types: ".npy, .npz"
+  - id: 3
+    name: Predicting relaxed state energy from initial structure (IS2RE) -- Validation
+    description: templates/is2re_val.html
+    leaderboard_public: False
+    is_public: True
+    is_submission_public: False
+    start_date: 2022-07-01 00:00:00
+    end_date: 2042-12-31 23:59:59
+    test_annotation_file: annotations/dummy.json
+    codename: is2re_val
+    max_submissions_per_day: 10
+    max_submissions_per_month: 300
+    max_submissions: 300
+    submission_meta_attributes:
+      - name: Institution name
+        description: Institution name
+        type: text
+        required: false
+      - name: Background
+        description: What's your primary area of expertise (machine learning, chemical engineering, something else?)
+        type: text
+        required: false
+      - name: Code URL
+        description: Link to code, if available
+        type: text
+        required: false
+      - name: Paper URL
+        description: Link to paper, if available
+        type: text
+        required: false
+      - name: What data was used for training?
+        description: What data was used for training?
+        type: checkbox
+        options: ["OC20-only", "OC22-only", "OC20 + OC22", "Other"]
+        required: true
+      - name: If "Other" data was used for training, describe what data was used.
+        description: If "Other" data was used for training, describe what data was used.
+        type: text
+        required: false
+      - name: Training / Inference Time
+        description: How long does it take to train your model and generate predictions?
+        type: text
+        required: false
+      - name: Is force being modeled as a conservative vector field?
+        description: That is, as a function of the gradient of potential energy
+        type: radio
+        options: ["Yes", "No"]
+        required: false
+      - name: Direct or relaxation-based prediction?
+        description: Direct if the relaxed energy is directly predicted from the initial state, without estimating intermediate relaxation states. Relaxation-based if you iteratively estimate atomic forces and update atomic positions until a relaxed state is reached and finally predict the energy of that state.
+        type: radio
+        options: ["Direct", "Relaxation-based", "Other"]
+        required: false
+      - name: Features
+        description: If you used any hand-designed features, briefly describe them
+        type: text
+        required: false
+    is_restricted_to_select_one_submission: False
+    is_partial_submission_evaluation_enabled: True
+    allowed_submission_file_types: ".npy, .npz"
+  - id: 4
+    name: Predicting relaxed state energy from initial structure (IS2RE) -- Test
+    description: templates/is2re_test.html
+    leaderboard_public: True
+    is_public: True
+    is_submission_public: False
+    start_date: 2022-07-01 00:00:00
+    end_date: 2042-12-31 23:59:59
+    test_annotation_file: annotations/dummy.json
+    codename: is2re_test
+    max_submissions_per_day: 10
+    max_submissions_per_month: 10
+    max_submissions: 10
+    submission_meta_attributes:
+      - name: Institution name
+        description: Institution name
+        type: text
+        required: false
+      - name: Background
+        description: What's your primary area of expertise (machine learning, chemical engineering, something else?)
+        type: text
+        required: false
+      - name: Code URL
+        description: Link to code, if available
+        type: text
+        required: false
+      - name: Paper URL
+        description: Link to paper, if available
+        type: text
+        required: false
+      - name: What data was used for training?
+        description: What data was used for training?
+        type: radio
+        options: ["OC20-only", "OC22-only", "OC20 + OC22", "Other"]
+        required: true
+      - name: If "Other" data was used for training, describe what data was used.
+        description: If "Other" data was used for training, describe what data was used.
+        type: text
+        required: false
+      - name: Training / Inference Time
+        description: How long does it take to train your model and generate predictions?
+        type: text
+        required: false
+      - name: Is force being modeled as a conservative vector field?
+        description: That is, as a function of the gradient of potential energy
+        type: radio
+        options: ["Yes", "No"]
+        required: false
+      - name: Direct or relaxation-based prediction?
+        description: Direct if the relaxed energy is directly predicted from the initial state, without estimating intermediate relaxation states. Relaxation-based if you iteratively estimate atomic forces and update atomic positions until a relaxed state is reached and finally predict the energy of that state.
+        type: radio
+        options: ["Direct", "Relaxation-based", "Other"]
+        required: false
+      - name: Features
+        description: If you used any hand-designed features, briefly describe them
+        type: text
+        required: false
+    is_restricted_to_select_one_submission: False
+    is_partial_submission_evaluation_enabled: True
+    allowed_submission_file_types: ".npy, .npz"
 
 dataset_splits:
-  - id: 1
-    name: Train Split
-    codename: train_split
-  - id: 2
-    name: Test Split
-    codename: test_split
+  - id: 1 # for S2EF val 
+    name: Intermediate state prediction -- val
+    codename: intermediate_val
+  - id: 2 # for S2EF test 
+    name: Intermediate state prediction -- test
+    codename: intermediate_test
+  - id: 3 # for IS2RE
+    name: Relaxed state prediction -- val
+    codename: relaxed_val
+  - id: 4 # for IS2RE
+    name: Relaxed state prediction -- test
+    codename: relaxed_test
 
 challenge_phase_splits:
-  - challenge_phase_id: 1
-    leaderboard_id: 1
-    dataset_split_id: 1
-    visibility: 1
-    leaderboard_decimal_precision: 2
+  - challenge_phase_id: 1  # Predicting energy and forces from structure (S2EF) -- Validation
+    leaderboard_id: 1  
+    dataset_split_id: 1  # Intermediate state prediction -- val
+    visibility: 2
+    leaderboard_decimal_precision: 4
     is_leaderboard_order_descending: True
-  - challenge_phase_id: 2
-    leaderboard_id: 1
-    dataset_split_id: 1
+  - challenge_phase_id: 2  # Predicting energy and forces from structure (S2EF) -- Test
+    leaderboard_id: 1  
+    dataset_split_id: 2  # Intermediate state prediction -- test
     visibility: 3
-    leaderboard_decimal_precision: 2
+    leaderboard_decimal_precision: 4
     is_leaderboard_order_descending: True
-  - challenge_phase_id: 2
-    leaderboard_id: 1
-    dataset_split_id: 2
-    visibility: 1
-    leaderboard_decimal_precision: 2
+  - challenge_phase_id: 3  # Predicting relaxed state energy from initial structure (IS2RE) -- Validation
+    leaderboard_id: 2
+    dataset_split_id: 3 # Relaxed state prediction -- val
+    visibility: 2
+    leaderboard_decimal_precision: 4
+    is_leaderboard_order_descending: True
+  - challenge_phase_id: 4  # Predicting relaxed state energy from initial structure (IS2RE) -- Test
+    leaderboard_id: 2
+    dataset_split_id: 4  # Relaxed state prediction -- test
+    visibility: 3
+    leaderboard_decimal_precision: 4
     is_leaderboard_order_descending: True
