@@ -1,6 +1,6 @@
 # If you are not sure what all these fields mean, please refer our documentation here:
 # https://evalai.readthedocs.io/en/latest/configuration.html
-title: OC22 - Open Catalyst Project Challenge for OER (Oxygen Evolution Reaction)
+title: "Open Catalyst Project: OC22"
 short_description: Use AI to model and discover new catalysts to address the energy challenges posed by climate change.
 description: templates/description.html
 evaluation_details: templates/evaluation_details.html
